@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 import Control.Exception
 import Control.Monad (unless)
 import Data.Binary.Put
@@ -8,16 +6,15 @@ import Data.Word
 import Network.Socket hiding (recvFrom, sendTo)
 import Network.Socket.ByteString
 import System.Environment
-import qualified Data.ByteString.Lazy as BL
 import qualified Data.ByteString as B
-import qualified Data.ByteString.Char8 as BC (putStrLn)
+import qualified Data.ByteString.Lazy as BL
 
 
 main :: IO ()
 main = do
   args <- getArgs
   print $ show args
-  BC.putStrLn "DNSdesu starting..."
+  putStrLn "DNSdesu starting..."
   runServer 1053
 
 runServer :: PortNumber -> IO ()
