@@ -18,4 +18,9 @@ cabal-version:       >=1.8
 executable watashiwa
   main-is:           Main.hs
   build-depends:     base ==4.6.*
+                   , network
+                   , bytestring
+                   , binary
+                   , binary-strict
+
   Hs-Source-Dirs:    src
