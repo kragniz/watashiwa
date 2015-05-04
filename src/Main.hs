@@ -43,6 +43,11 @@ readHeader = do
 makeResponse :: Put
 makeResponse = do
   putWord16be 1053
+  putWord16be 0x8180
+  putWord16be 0x0001
+  putWord16be 0x0001
+  putWord16be 0x0000
+  putWord16be 0x0000
 
 printWithMessage :: String -> B.ByteString -> IO ()
 printWithMessage message string = do
