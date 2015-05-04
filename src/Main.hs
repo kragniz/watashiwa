@@ -10,6 +10,8 @@ import qualified Data.ByteString as B
 import qualified Data.ByteString.Lazy as BL
 
 
+type Header = (Word16)
+
 main :: IO ()
 main = do
   args <- getArgs
@@ -26,15 +28,15 @@ runServer port = withSocketsDo $ do
 handler :: Socket -> IO ()
 handler conn = do
   (request, d) <- recvFrom conn 512
-  let id = runGet readHeader request
-  print $ show id
+  let header = runGet readHeader request
+  print $ show header
   let response = toStrict $ runPut makeResponse
   unless (B.null request) $ sendTo conn response d >> handler conn
 
-readHeader :: Get (Word16)
+readHeader :: Get Header
 readHeader = do
   id <- getWord16be
-  return id
+  return (id)
 
 makeResponse :: Put
 makeResponse = do
