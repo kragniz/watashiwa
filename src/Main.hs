@@ -31,6 +31,7 @@ handler conn = do
   let header = runGet readHeader request
   print $ show header
   let response = toStrict $ runPut makeResponse
+  printWithMessage "sending: " response
   unless (B.null request) $ sendTo conn response d >> handler conn
 
 readHeader :: Get Header
@@ -42,6 +43,11 @@ readHeader = do
 makeResponse :: Put
 makeResponse = do
   putWord16be 1053
+
+printWithMessage :: String -> B.ByteString -> IO ()
+printWithMessage message string = do
+  putStr message
+  print $ show string
 
 toStrict :: BL.ByteString -> B.ByteString
 toStrict = B.concat . BL.toChunks
