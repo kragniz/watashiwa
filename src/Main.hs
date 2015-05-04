@@ -10,7 +10,7 @@ import qualified Data.ByteString as B
 import qualified Data.ByteString.Lazy as BL
 
 
-type Header = (Word16)
+type Header = (Word16, B.ByteString)
 
 main :: IO ()
 main = do
@@ -36,7 +36,8 @@ handler conn = do
 readHeader :: Get Header
 readHeader = do
   id <- getWord16be
-  return (id)
+  flags <- getByteString 2
+  return (id, flags)
 
 makeResponse :: Put
 makeResponse = do
